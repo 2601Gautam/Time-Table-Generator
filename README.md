@@ -36,19 +36,6 @@ Input filenames can be entered without a path. If the file is not found in the c
 - Core courses with a weekly lecture count of 0 are reported as out of scope for auto-scheduling.
 - Non-Core courses are read from the input but are not auto-slotted.
 
-## Implementation Changes
-
-The current implementation keeps the scheduling rules from the original project but replaces the internal data structures with STL-based components.
-
-| Original implementation | Current implementation | Reason |
-|---|---|---|
-| Manual linked list for priority handling | `PriorityScheduler` built on `std::multimap` | Deterministic ordering with simpler code |
-| Manual open-chaining hash table for grouping | `CourseCatalog` built on `std::map` | One-pass grouping with stable ordering |
-| Fixed-size per-slot arrays | `Slot` with `std::vector`, `std::set`, and `std::unordered_set` | Removes hardcoded size limits |
-| Hardcoded program-name checks | Data-driven slot computation | Works with any program naming pattern |
-| Raw C-style arrays and VLAs | `std::vector` | Standard C++ and safer memory handling |
-| Silent invalid CSV rows | Explicit CSV validation with line numbers | Faster debugging and safer input handling |
-
 ## Project Structure
 
 ```
